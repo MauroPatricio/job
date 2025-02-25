@@ -6,7 +6,7 @@ import soap from 'soap';
 
 
 export const baseUrl = ()=> process.env.BASE_URL ? process.env.BASE_URL : process.env.NODE_ENV !== 'production'?
-'http://localhost:3000': 'https://nhiquelashop.co.mz';
+'http://localhost:4000': 'https://nhiquelashop.co.mz';
 
 
 // const transporter = nodemailer.createTransport({

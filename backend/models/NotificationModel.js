@@ -1,24 +1,32 @@
 import mongoose from 'mongoose';
 
 const notificationSchema = new mongoose.Schema({
-  userID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-  },
-  tokenID: {
+  message: {
     type: String,
     required: true,
   },
-  notifications: {
-    type: [Object],
+  receiver_id: {
+    type: String,
+    required: true,
   },
-  data: {
-    type: Object,
+  sender_id: {
+    type: String,
+    required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  send_status: {
+    type: Boolean,
+    default: false,
   },
+  orderID: {
+    type: String,
+    required: true,
+  },
+  pushToken: {
+    type: String,
+    required: true
+  }
 });
 
-module.exports = mongoose.model('Notification', notificationSchema);
+const NotificationNhabanga = mongoose.model('Notification', notificationSchema);
+
+export default NotificationNhabanga;

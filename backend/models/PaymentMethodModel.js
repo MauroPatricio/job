@@ -6,7 +6,7 @@ const paymentMethodSchema = new mongoose.Schema(
 
     shortName: { type: String, require: true },
     fullName: { type: String, require: true },
-    description: { type: String },
+    description: { type: String }, // Mpesa, Visa, Emola
     accountNumber: { type: Number, require: true },
     accountNumberAlternative: { type: Number },
     shortCode: { type: Number },

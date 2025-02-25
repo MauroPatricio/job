@@ -3,11 +3,11 @@ import User from '../models/UserModel.js';
 import { baseUrl, generateToken, isAdmin, isAuth } from '../utils.js';
 import expressAsyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
-import Product from '../models/ProductModel.js';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer'
 import path from 'path'
- 
+import PaymentMethod from '../models/NotificationModel.js';
+
 
 const notificationRoutes = express.Router();
 

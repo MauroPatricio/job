@@ -5,7 +5,7 @@ import mpesa from 'mpesa-node-api';
 import Payment from '../models/PaymentModel.js'
 import config from '../config.js';
 import { isAuth } from '../utils.js';
-import PaymentMethod from '../models/PaymentMethod.js';
+import PaymentMethod from '../models/PaymentMethodModel.js';
 
 
 const paymentRouter = express.Router();

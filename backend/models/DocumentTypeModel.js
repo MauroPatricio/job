@@ -2,8 +2,7 @@ import mongoose from 'mongoose';
 
 const documentSchema = new mongoose.Schema(
   {
-    name: { type: String, require: true },
-    nome: { type: String, require: true },
+    name: { type: String, require: true }, // BI, Carta de conducao, Passport
     isActive:  { type: Boolean, default: true },
   },
   {

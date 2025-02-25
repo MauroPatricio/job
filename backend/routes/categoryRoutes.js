@@ -2,7 +2,6 @@ import express from 'express';
 import { isAdmin, isAuth } from '../utils.js';
 import expressAsyncHandler from 'express-async-handler';
 import Category from '../models/CategoryModel.js';
-import Product from '../models/ProductModel.js';
 
 const categoryRouter = express.Router();
 
@@ -15,7 +14,7 @@ categoryRouter.get(
     const page = req.query.page || 1;
     const pageSize = 10
 
-    const categories = await Category.find({ isActive: true }).sort({nome: 'asc'});
+    const categories = await Category.find({ isActive: true }).sort({name: 'asc'});
 
     res.status(200)
     .send({categories});
@@ -30,8 +29,8 @@ categoryRouter.post(
     const newCategory = new Category({
       icon: req.body.icon,
       name: req.body.name,
-      nome: req.body.nome,
       description: req.body.description,
+      img: req.body.img,      
       isActive: true,
     });
 
@@ -66,18 +65,10 @@ categoryRouter.put(
     if (category) {
       category.icon = req.body.icon;
       category.name = req.body.name;
-      category.nome = req.body.nome;
-
       category.description = req.body.description;
       category.isActive = req.body.isActive;
+      category.img = req.body.img;
 
-     if(!category.isActive){
-     const products = await Product.find({category: req.params.id});
-      products.forEach(async p=>{
-        p.isActive = false;
-        await p.save();
-      })
-     }
 
       await category.save();
       res.send({ message: `Categoria actualizada com sucesso` });
@@ -96,10 +87,6 @@ categoryRouter.delete(
 
     if (category) {
       category.isActive = false;
-
-      await Product.deleteMany({category: category._id });
-
-
       await category.save();
 
       res.send({ message: `Categoria removida com sucesso` });

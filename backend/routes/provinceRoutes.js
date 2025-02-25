@@ -29,7 +29,6 @@ provinceRoutes.post(
   expressAsyncHandler(async (req, res) => {
     const newProvince = new Province({
       name: req.body.name,
-      nome: req.body.nome,
       isActive: true,
     });
 
@@ -63,7 +62,6 @@ provinceRoutes.put(
 
     if (province) {
       province.name = req.body.name;
-      province.nome = req.body.nome;
       province.isActive = req.body.isActive;
 
       await province.save();
