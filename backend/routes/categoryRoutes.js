@@ -23,8 +23,8 @@ categoryRouter.get(
 
 categoryRouter.post(
   '/',
-  isAuth,
-  isAdmin,
+  // isAuth,
+  // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const newCategory = new Category({
       icon: req.body.icon,
@@ -58,7 +58,7 @@ categoryRouter.get(
 
 categoryRouter.put(
   '/:id/',
-  isAuth,
+  // isAuth,
   expressAsyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
 
@@ -80,8 +80,8 @@ categoryRouter.put(
 
 categoryRouter.delete(
   '/:id',
-  isAuth,
-  isAdmin,
+  // isAuth,
+  // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const category = await Category.findById(req.params.id);
 

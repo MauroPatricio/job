@@ -80,7 +80,7 @@ app.use((err, req, res, next) => {
 });
 
 // Configuração do servidor e WebSocket
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 const httpServer = http.Server(app);
 const io = new Server(httpServer, { cors: { origin: '*' } });
 

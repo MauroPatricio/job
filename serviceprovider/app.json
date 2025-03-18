@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "nhiquelapro",
+    "slug": "nhiquelapro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/nhiquela3.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/nhiquela2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "android": {
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/nhiquela2.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.mpatricio.nhiquelapro"
+    },
+    "ios": {
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to your camera to upload images.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to upload images.",
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification"
+        ]
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d73ab2bc-06a6-4175-ad9b-8a139461f85f"
+      }
+    },
+    "owner": "mpatricio"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "faztudo",
+    "slug": "faztudo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/faztudo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/faztudo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Precisamos da sua localização para calcular a distância até o fornecedor."
+      }
+    },
+    "android": {
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.mpatricio.faztudo"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "76b56ee2-8c18-4398-a283-254a8dcf52fa"
+      }
+    },
+    "owner": "mpatricio"
+  }
+}
