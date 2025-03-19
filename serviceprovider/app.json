@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Precisamos da sua localização para calcular a distância até o fornecedor."
+        "NSLocationWhenInUseUsageDescription": "Precisamos da sua localização para calcular a distância até ao cliente."
       }
     },
     "android": {
