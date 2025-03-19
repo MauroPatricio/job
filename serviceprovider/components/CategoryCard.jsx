@@ -1,53 +1,41 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, Platform } from 'react-native';
 import React from 'react';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Ionicons, MaterialCommunityIcons, FontAwesome  } from '@expo/vector-icons';
 
-const CategoryCard = ({ imgUrl, title, onPress }) => {
-  const formattedTitle = title.replace(/\s*\(.*?\)\s*/g, '');
+const CategoryCard = ({ category, onPress }) => {
+  const renderIcon = (iconName) => {
+      return <Ionicons name={iconName} size={30} color="#fff" />;
+  
+  };
 
   return (
-    <TouchableOpacity style={styles.wrapper} onPress={onPress}>
-      {imgUrl != null && <Image source={{ uri: imgUrl }} style={styles.cover} />}
-      <Text style={styles.title}>{formattedTitle}</Text>
+    <TouchableOpacity style={[styles.categoryButton, { backgroundColor: category.color }]} onPress={onPress}>
+      {renderIcon(category.icon)}
+      <Text style={styles.categoryText}>{category.name}</Text>
     </TouchableOpacity>
   );
 };
 
-export default CategoryCard;
-
 const styles = StyleSheet.create({
-  cover: {
-    height: 50,
-    width: 50,
-    resizeMode: 'contain',
-    backgroundColor: 'white',
-    borderRadius: 16,
-  },
-  wrapper: {
-    letterSpacing: 1,
-    marginRight: 7,
-    backgroundColor: '#E6E6FA',
-    padding: 6,
-    borderRadius: 15,
-    borderWidth: 0.5,
-    borderColor: '#4B0082',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 3,
-    elevation: 5,
-    justifyContent: 'center',
+  categoryButton: {
+    width: 100,
+    height: 100,
+    borderRadius: 10,
     alignItems: 'center',
-    ...(Platform.OS === 'web' && {
-      cursor: 'pointer',
-      ':hover': {
-        backgroundColor: 'darkred',
-      },
-    }),
+    justifyContent: 'center',
+    margin: 5,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  title: {
-    marginTop: 4,
-    fontSize: 14,
+  categoryText: {
+    marginTop: 5,
+    fontSize: 12,
     fontWeight: 'bold',
-    color: '#4B0082',
+    color: '#fff',
+    textAlign: 'center',
   },
 });
+
+export default CategoryCard;

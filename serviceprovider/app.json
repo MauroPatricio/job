@@ -1,23 +1,25 @@
 {
   "expo": {
-    "name": "nhiquelapro",
-    "slug": "nhiquelapro",
+    "name": "eurecomendopro",
+    "slug": "eurecomendopro",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/nhiquela3.png",
+    "icon": "./assets/faztudo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/nhiquela2.png",
+      "image": "./assets/faztudo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Precisamos da sua localização para calcular a distância até o fornecedor."
+      }
+    },
     "android": {
       "permissions": [
         "CAMERA",
@@ -29,27 +31,17 @@
         "FOREGROUND_SERVICE"
       ],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/nhiquela2.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mpatricio.nhiquelapro"
-    },
-    "ios": {
-      "infoPlist": {
-        "NSCameraUsageDescription": "This app needs access to your camera to upload images.",
-        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to upload images.",
-        "UIBackgroundModes": [
-          "fetch",
-          "remote-notification"
-        ]
-      }
+      "package": "com.mpatricio.eurecomendopro"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "d73ab2bc-06a6-4175-ad9b-8a139461f85f"
+        "projectId": "76b56ee2-8c18-4398-a283-254a8dcf52fa"
       }
     },
     "owner": "mpatricio"

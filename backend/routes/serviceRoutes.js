@@ -56,7 +56,7 @@ serviceRouter.get(
 // Update a service by ID
 serviceRouter.put(
     '/:id',
-    isAuth,
+    // isAuth,
     expressAsyncHandler(async (req, res) => {
         try {
             const service = await Service.findByIdAndUpdate(req.params.id, req.body, { new: true });

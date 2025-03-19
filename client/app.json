@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "faztudo",
-    "slug": "faztudo",
+    "name": "eurecomendo",
+    "slug": "eurecomendo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/faztudo.png",
@@ -34,7 +34,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mpatricio.faztudo"
+      "package": "com.mpatricio.eurecomendo"
     },
     "web": {
       "favicon": "./assets/favicon.png"

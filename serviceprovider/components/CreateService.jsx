@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Alert,
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  Modal,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, Image, StyleSheet, SafeAreaView, ScrollView, Modal, FlatList } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -29,16 +16,13 @@ const validationSchema = Yup.object().shape({
   img: Yup.string().required('A imagem é obrigatória'),
 });
 
-const EditService = () => {
-  const route = useRoute();
-  const { service } = route.params; // Get the service data passed via navigation
-  const [image, setImage] = useState(service.img);
+const CreateService = () => {
+  const [image, setImage] = useState(null);
   const [categories, setCategories] = useState([]);
-  const [selectedIcon, setSelectedIcon] = useState(service.icon);
-  const [selectedCategory, setSelectedCategory] = useState(service.category);
+  const [selectedIcon, setSelectedIcon] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(null); // Armazena o objeto completo da categoria
   const [modalVisible, setModalVisible] = useState(false);
   const [iconModalVisible, setIconModalVisible] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   // Fetch categories
@@ -54,80 +38,20 @@ const EditService = () => {
     fetchCategories();
   }, []);
 
-  // Image picker
   const pickImage = async (setFieldValue) => {
-    try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 4],
-        quality: 1,
-      });
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
 
-      if (!result.canceled) {
-        setImage(result.assets[0].uri);
-        setFieldValue('img', result.assets[0].uri);
-      }
-    } catch (error) {
-      console.error('Erro ao selecionar imagem:', error);
-      Toast.show({
-        type: 'error',
-        text1: 'Erro ao selecionar imagem',
-        text2: 'Tente novamente',
-      });
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+      setFieldValue('img', result.assets[0].uri);
     }
   };
 
-  // Handle service update
-  const handleUpdateService = async (values) => {
-    Alert.alert(
-      'Confirmar',
-      'Tem certeza que deseja atualizar este serviço?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Confirmar',
-          onPress: async () => {
-            setIsLoading(true);
-            try {
-              const updatedValues = { ...values, category: selectedCategory._id, icon: selectedIcon };
-              await api.put(`/services/${service._id}`, updatedValues);
-              Toast.show({
-                type: 'success',
-                text1: 'Serviço atualizado com sucesso!',
-              });
-              navigation.goBack();
-            } catch (error) {
-              console.error('Erro ao atualizar serviço:', error);
-              Toast.show({
-                type: 'error',
-                text1: 'Erro ao atualizar serviço',
-                text2: 'Tente novamente mais tarde',
-              });
-            } finally {
-              setIsLoading(false);
-            }
-          },
-        },
-      ]
-    );
-  };
-
-  // Handle category selection
-  const handleCategorySelect = (category, setFieldValue) => {
-    setSelectedCategory(category);
-    setFieldValue('category', category._id);
-    setModalVisible(false);
-  };
-
-  // Handle icon selection
-  const handleIconSelect = (icon, setFieldValue) => {
-    setSelectedIcon(icon);
-    setFieldValue('icon', icon);
-    setIconModalVisible(false);
-  };
-
-  // List of available icons
 
   const iconList = [
     "link", "search", "image", "text", "alert", "checkbox", "menu", "radio", "timer", "close", 
@@ -250,6 +174,51 @@ const EditService = () => {
     "easel-sharp", "egg-outline", "egg-sharp", "ellipse-outline", "ellipse-sharp", 
     "ellipsis-horizontal", "ellipsis-horizontal-circle", "ellipsis-horizontal-circle-outline" 
   ];
+  
+
+  const handleSaveService = async (values) => {
+    const formData = new FormData();
+    formData.append('name', values.name);
+    formData.append('description', values.description);
+    formData.append('category', selectedCategory._id); // Envia o _id da categoria
+    formData.append('icon', values.icon);
+
+    if (values.img) {
+      formData.append('img', {
+        uri: values.img,
+        type: 'image/jpeg',
+        name: 'service.jpg',
+      });
+    }
+
+    try {
+      await api.post('/services', values);
+      Toast.show({
+        type: 'success',
+        text1: 'Serviço criado com sucesso!',
+      });
+      navigation.goBack();
+    } catch (error) {
+      console.error('Erro ao criar serviço:', error);
+      Toast.show({
+        type: 'error',
+        text1: 'Erro ao criar serviço',
+        text2: 'Tente novamente mais tarde',
+      });
+    }
+  };
+
+  const handleCategorySelect = (category, setFieldValue) => {
+    setSelectedCategory(category); // Armazena o objeto completo da categoria
+    setFieldValue('category', category._id); // Atualiza o valor do campo no Formik com o _id
+    setModalVisible(false);
+  };
+
+  const handleIconSelect = (icon, setFieldValue) => {
+    setSelectedIcon(icon);
+    setFieldValue('icon', icon); // Atualiza o valor do campo no Formik
+    setIconModalVisible(false);
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -260,17 +229,17 @@ const EditService = () => {
         >
           <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={styles.title}>Editar Serviço</Text>
+        <Text style={styles.title}>Criar Serviço</Text>
         <Formik
           initialValues={{
-            name: service.name,
-            description: service.description,
-            icon: service.icon,
-            img: service.img,
-            category: service.category._id,
+            name: '',
+            description: '',
+            icon: '',
+            img: '',
+            category: '', // Adiciona category aos valores iniciais
           }}
           validationSchema={validationSchema}
-          onSubmit={handleUpdateService}
+          onSubmit={handleSaveService}
         >
           {({ handleChange, handleSubmit, values, setFieldValue, errors, touched, isValid }) => (
             <View style={styles.formWrapper}>
@@ -304,7 +273,7 @@ const EditService = () => {
                       renderItem={({ item }) => (
                         <TouchableOpacity
                           style={styles.modalItem}
-                          onPress={() => handleCategorySelect(item, setFieldValue)}
+                          onPress={() => handleCategorySelect(item, setFieldValue)} // Passa o objeto completo
                         >
                           <Text style={styles.modalItemText}>{item.name}</Text>
                         </TouchableOpacity>
@@ -415,13 +384,9 @@ const EditService = () => {
               <TouchableOpacity
                 style={[styles.button, { backgroundColor: isValid ? '#2D388A' : '#ccc' }]}
                 onPress={handleSubmit}
-                disabled={!isValid || isLoading}
+                disabled={!isValid}
               >
-                {isLoading ? (
-                  <ActivityIndicator color="#fff" />
-                ) : (
-                  <Text style={styles.buttonText}>Salvar Alterações</Text>
-                )}
+                <Text style={styles.buttonText}>Criar Serviço</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -546,4 +511,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditService;
+export default CreateService;
